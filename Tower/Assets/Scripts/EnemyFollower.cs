@@ -10,6 +10,8 @@ public class EnemyFollower : MonoBehaviour
     int length; 
     int pointIndex = 0;
     public static bool turnOn;
+
+    //If you see this, it means it worked.
    
     // Start is called before the first frame update
     void Start()
