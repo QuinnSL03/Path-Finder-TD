@@ -200,6 +200,12 @@ namespace UnityEngine.UI
         protected TouchScreenKeyboard m_Keyboard;
         static private readonly char[] kSeparators = { ' ', '.', ',', '\t', '\r', '\n' };
 
+    #if UNITY_ANDROID
+        static private bool s_IsQuestDeviceEvaluated = false;
+    #endif // if UNITY_ANDROID
+
+        static private bool s_IsQuestDevice = false;
+
         /// <summary>
         /// Text Text used to display the input's value.
         /// </summary>
@@ -314,6 +320,7 @@ namespace UnityEngine.UI
         private bool m_HasDoneFocusTransition = false;
         private WaitForSecondsRealtime m_WaitForSecondsRealtime;
         private bool m_TouchKeyboardAllowsInPlaceEditing = false;
+        private bool m_IsCompositionActive = false;
 
         private BaseInput input
         {
@@ -332,6 +339,7 @@ namespace UnityEngine.UI
 
         // Doesn't include dot and @ on purpose! See usage for details.
         const string kEmailSpecialCharacters = "!#$%&'*+-/=?^_`{|}~";
+        const string kOculusQuestDeviceModel = "Oculus Quest";
 
         protected InputField()
         {
@@ -1111,6 +1119,21 @@ namespace UnityEngine.UI
 
     #endif // if UNITY_EDITOR
 
+    #if UNITY_ANDROID
+        protected override void Awake()
+        {
+            base.Awake();
+
+            if (s_IsQuestDeviceEvaluated)
+                return;
+
+            // Used for Oculus Quest 1 and 2 software keyboard regression.
+            // TouchScreenKeyboard.isInPlaceEditingAllowed is always returning true in these devices and would prevent the software keyboard from showing up if that value was used.
+            s_IsQuestDevice = SystemInfo.deviceModel == kOculusQuestDeviceModel;
+            s_IsQuestDeviceEvaluated = true;
+        }
+    #endif // if UNITY_ANDROID
+
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -1144,7 +1167,7 @@ namespace UnityEngine.UI
                 m_TextComponent.UnregisterDirtyVerticesCallback(UpdateLabel);
                 m_TextComponent.UnregisterDirtyMaterialCallback(UpdateCaretMaterial);
             }
-            CanvasUpdateRegistry.DisableCanvasElementForRebuild(this);
+            CanvasUpdateRegistry.UnRegisterCanvasElementForRebuild(this);
 
             // Clear needs to be called otherwise sync never happens as the object is disabled.
             if (m_CachedInputRenderer != null)
@@ -1155,12 +1178,6 @@ namespace UnityEngine.UI
             m_Mesh = null;
 
             base.OnDisable();
-        }
-
-        protected override void OnDestroy()
-        {
-            CanvasUpdateRegistry.UnRegisterCanvasElementForRebuild(this);
-            base.OnDestroy();
         }
 
         IEnumerator CaretBlink()
@@ -1337,7 +1354,9 @@ namespace UnityEngine.UI
             switch (platform)
             {
                 case RuntimePlatform.Android:
-                case RuntimePlatform.WebGLPlayer:
+                    if (s_IsQuestDevice)
+                        return TouchScreenKeyboard.isSupported;
+
                     return !TouchScreenKeyboard.isInPlaceEditingAllowed;
                 default:
                     return TouchScreenKeyboard.isSupported;
@@ -1353,7 +1372,7 @@ namespace UnityEngine.UI
         // This currently only happens on Chrome OS devices (that support laptop and tablet mode).
         private bool InPlaceEditingChanged()
         {
-            return m_TouchKeyboardAllowsInPlaceEditing != TouchScreenKeyboard.isInPlaceEditingAllowed;
+            return !s_IsQuestDevice && m_TouchKeyboardAllowsInPlaceEditing != TouchScreenKeyboard.isInPlaceEditingAllowed;
         }
 
         void UpdateCaretFromKeyboard()
@@ -1941,6 +1960,9 @@ namespace UnityEngine.UI
 
         private bool IsValidChar(char c)
         {
+            if (c == 0)
+                return false;
+
             // Delete key on mac
             if ((int)c == 127)
                 return false;
@@ -1980,6 +2002,17 @@ namespace UnityEngine.UI
                 if (m_ProcessingEvent.rawType == EventType.KeyDown)
                 {
                     consumedEvent = true;
+
+                    // Special handling on OSX which produces more events which need to be suppressed.
+                    if (m_IsCompositionActive && compositionString.Length == 0)
+                    {
+                        // Suppress other events related to navigation or termination of composition sequence.
+                        if (m_ProcessingEvent.character == 0 && m_ProcessingEvent.modifiers == EventModifiers.None)
+                        {
+                            continue;
+                        }
+                    }
+
                     var shouldContinue = KeyPressed(m_ProcessingEvent);
                     if (shouldContinue == EditState.Finish)
                     {
@@ -1987,8 +2020,9 @@ namespace UnityEngine.UI
                             SendOnSubmit();
 
                         DeactivateInputField();
-                        break;
+                        continue;
                     }
+                    UpdateLabel();
                 }
 
                 switch (m_ProcessingEvent.type)
@@ -2438,10 +2472,17 @@ namespace UnityEngine.UI
                 m_PreventFontCallback = true;
 
                 string fullText;
+
                 if (EventSystem.current != null && gameObject == EventSystem.current.currentSelectedGameObject && compositionString.Length > 0)
+                {
+                    m_IsCompositionActive = true;
                     fullText = text.Substring(0, m_CaretPosition) + compositionString + text.Substring(m_CaretPosition);
+                }
                 else
+                {
+                    m_IsCompositionActive = false;
                     fullText = text;
+                }
 
                 string processed;
                 if (inputType == InputType.Password)
@@ -2463,11 +2504,6 @@ namespace UnityEngine.UI
                     m_DrawStart = 0;
                     m_DrawEnd = m_Text.Length;
                 }
-
-                // To fix case 1320719; we need to rebuild the layout before we check the number of characters that can fit within the extents.
-                // Otherwise, the extents provided may not be good.
-                textComponent.SetLayoutDirty();
-                Canvas.ForceUpdateCanvases();
 
                 if (!isEmpty)
                 {
@@ -3081,7 +3117,7 @@ namespace UnityEngine.UI
             // Cache the value of isInPlaceEditingAllowed, because on UWP this involves calling into native code
             // Usually, the value only needs to be updated once when the TouchKeyboard is opened; however, on Chrome OS,
             // we check repeatedly to see if the in-place editing state has changed, so we can take action.
-            m_TouchKeyboardAllowsInPlaceEditing = TouchScreenKeyboard.isInPlaceEditingAllowed;
+            m_TouchKeyboardAllowsInPlaceEditing = !s_IsQuestDevice && TouchScreenKeyboard.isInPlaceEditingAllowed;
 
             if (TouchScreenKeyboardShouldBeUsed())
             {
@@ -3352,7 +3388,7 @@ namespace UnityEngine.UI
         /// <summary>
         /// See ILayoutElement.minWidth.
         /// </summary>
-        public virtual float minWidth { get { return 5; } }
+        public virtual float minWidth { get { return 0; } }
 
         /// <summary>
         /// Get the displayed with of all input characters.
