@@ -4,43 +4,59 @@ using UnityEngine;
 
 public class EnemyFollower : MonoBehaviour
 {
-    GameObject point;
-    public float speed = .05f;
+    public float distanceTraveled;
+    GameObject path;
+    public float speed = .1f;
     float time;
     int length; 
     int pointIndex = 0;
-    public static bool turnOn;
+    public GameObject particle;
+    public int health = 100;
 
-    //If you see this, it means it worked.
    
     // Start is called before the first frame update
     void Start()
     {
-        point = GameObject.FindWithTag("PathPoint");
+        path = GameObject.FindWithTag("PathPoint");
+        TowerShooting.enemys.Add(gameObject);
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(turnOn)
+        if(PathFinder.done)
         {
-            length = point.transform.childCount;
+            length = path.transform.childCount;
         
             time += Time.deltaTime;
-            transform.LookAt(point.transform.GetChild(pointIndex).position);
+            distanceTraveled += .1f;
+            transform.LookAt(path.transform.GetChild(pointIndex).position);
             transform.position += transform.forward * speed;
-            if(Vector3.Distance(point.transform.GetChild(pointIndex).position, transform.position) < .2)
+            if(Vector3.Distance(path.transform.GetChild(pointIndex).position, transform.position) < .1)
             {
+                gameObject.transform.position = path.transform.GetChild(pointIndex).position;
                 pointIndex++;
-                Debug.Log(pointIndex);
+                //Debug.Log(pointIndex);
                 if(pointIndex == length)
                 {
                     //reached end point, take life.
+                    TowerShooting.enemys.Remove(gameObject);
                     Destroy(gameObject);
+                    //use different particle
+                    //Instantiate(particle, transform.position, transform.rotation * Quaternion.Euler (-90f, 0f, 0f));
                 }   
             }
         }
+        //gunned down
+        if(health <= 0)
+        {
+            TowerShooting.enemys.Remove(gameObject);
+            Destroy(gameObject);
+            Instantiate(particle, transform.position, transform.rotation * Quaternion.Euler (-90f, 0f, 0f));
+            GameController.money += 10;
+        }
+        
         
     }
 }

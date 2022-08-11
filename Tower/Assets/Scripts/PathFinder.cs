@@ -11,6 +11,7 @@ public class PathFinder : MonoBehaviour
     private int pointCount;
     public GameObject currentPoint;
     private int index = 0;
+    public static bool done;
     Color color = new Color(0.2f, 1f, 0.2f, 1f);
 
     // Start is called before the first frame update
@@ -18,25 +19,41 @@ public class PathFinder : MonoBehaviour
     {
 
         pointParent = GameObject.FindWithTag("Point");
+        for(int i = 0; i < pointParent.transform.childCount; i++)
+        {
+            if(pointParent.transform.GetChild(i).childCount == 1)
+            {
+                pointParent.transform.GetChild(i).transform.GetChild(0).tag = "st";
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {   
-
-        if(currentPoint == null)
-        Debug.Log("null");
-        transform.LookAt(currentPoint.transform);
-        transform.position += transform.forward * .05f;
-        if(Vector3.Distance(currentPoint.transform.position, transform.position) < .1)
+        if(GameController.start)
         {
-            currentPoint.GetComponent<Renderer>().material.SetColor("_Color", color);
-            FindNextPoint();
+            if(currentPoint == null)
+            Debug.Log("null");
+            transform.LookAt(currentPoint.transform);
+            transform.position += transform.forward * .1f;
+            if(Vector3.Distance(currentPoint.transform.position, transform.position) < .1)
+            {
+                
+                //pointParent.GetComponentsInChildren<>();
+                FindNextPoint();
+                if(Vector3.Distance(currentPoint.transform.position, endPoint.transform.position) > .1)
+                {
+                    Debug.Log("painting");
+                    GameObject childTile = currentPoint.transform.GetChild(0).gameObject;
+                    childTile.GetComponent<Renderer>().material.SetColor("_Color", color);
+                }
+            }
         }
-        
             
+                
     }
-    private void FindNextPoint()
+        void FindNextPoint()
     {
         
         float temp = 100000;
@@ -48,7 +65,6 @@ public class PathFinder : MonoBehaviour
             {
                 reached = true;
                 index = i;
-                //tempPoint.transform.position = pointParent.transform.GetChild(i).gameObject.transform.position;
                 temp = Vector3.Distance(endPoint.transform.position, pointParent.transform.GetChild(i).position);
             }
         }
@@ -61,9 +77,18 @@ public class PathFinder : MonoBehaviour
         }
         else
         {
+            Debug.Log("Destroyed");
             Destroy(gameObject);
-            EnemyFollower.turnOn = true;
+            for(int i = 0; i < pointParent.transform.childCount; i++)
+            {
+                if(pointParent.transform.GetChild(i).transform.childCount == 1)
+                {
+                    pointParent.transform.GetChild(i).transform.GetChild(0).tag = "PlayableTile";
+                    Debug.Log("Tagged!");
+                }
+            }
+            done = true;
         }
     }
-    
-}
+    }
+

@@ -6,6 +6,13 @@ TagManager:
   tags:
   - Point
   - PathPoint
+  - PlayableTile
+  - Enemy
+  - OccupiedTile
+  - Temp
+  - GunTower
+  - StartingTIle
+  - st
   layers:
   - Default
   - TransparentFX

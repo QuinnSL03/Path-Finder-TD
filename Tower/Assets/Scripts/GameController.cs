@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    public static int money = 200;
+    public GameObject Enemy;
+    float time;
+    int count;
+    public static bool start = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +18,19 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        count++;
+        time += Time.deltaTime; //hi
+        if(count % 100 == 0 && PathFinder.done)
+        {
+            Instantiate(Enemy, new Vector3(8.27f, .401f, -10.6f), Quaternion.identity);
+            
+            
+        }
     }
+    public static void setStart(bool s)
+    {
+        start = s;
+    }
+    
+
 }
