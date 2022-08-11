@@ -1,0 +1,8 @@
+1 = takes the longest and can wait.
+2 = it can be done later and is not needed now.
+3 = has to be done now.
+
+
+1) switch pathing algo to A* (will take like an entire day probably)
+2) Make more towers and enemies.
+3. polish stuff (do now)
