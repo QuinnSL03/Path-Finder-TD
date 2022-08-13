@@ -19,6 +19,13 @@ public class StartButton : MonoBehaviour
     public void setStart()
     {
         GameController.setStart(true);
+        GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag("Temp");   
+        foreach (GameObject obj in taggedObjects) 
+        {
+            Debug.Log("Destroyed Temps" + taggedObjects.Length);
+	        Destroy(obj);
+        }
+        gameObject.tag = "Temp";
     }
     
 }

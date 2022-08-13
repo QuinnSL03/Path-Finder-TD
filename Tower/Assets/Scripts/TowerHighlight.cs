@@ -66,6 +66,7 @@ public class TowerHighlight : MonoBehaviour
                     Debug.Log("Placed!");
                     Debug.Log(objectHit.name);
                     objectHit.tag = "OccupiedTile";
+                    objectHit.gameObject.layer = 6;
                 }
             }
             //if right click, cancel

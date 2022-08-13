@@ -26,13 +26,10 @@ public class PlaceTower : MonoBehaviour
 
     public void SpawnGunner(GameObject Gunner)
     {
-        if(PathFinder2.done)
-        {
-            GameObject TowerHighlight = Gunner;
-            TowerHighlight.GetComponent<TowerHighlight>().tilesParent = this.tilesParent;
-            TowerHighlight.GetComponent<TowerHighlight>().camera = this.camera;
-            Instantiate(TowerHighlight);
-        }
+        GameObject TowerHighlight = Gunner;
+        TowerHighlight.GetComponent<TowerHighlight>().tilesParent = this.tilesParent;
+        TowerHighlight.GetComponent<TowerHighlight>().camera = this.camera;
+        Instantiate(TowerHighlight);
         
     }
 

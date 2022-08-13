@@ -27,7 +27,7 @@ public class EnemyFollower : MonoBehaviour
             length = PathFinder2.pathTiles.Count;
         
             time += Time.deltaTime;
-            distanceTraveled += .1f;
+            distanceTraveled += speed;
             transform.LookAt(PathFinder2.pathTiles[pointIndex].transform.position);
             transform.position += transform.forward * speed;
             if(Vector3.Distance(PathFinder2.pathTiles[pointIndex].transform.position, transform.position) < .1)
