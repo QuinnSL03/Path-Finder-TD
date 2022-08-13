@@ -56,10 +56,6 @@ public class PathFinder2 : MonoBehaviour
                     {
                         // Done
                         done = true;
-                        for (int i = 0; i < pointParent.transform.childCount; i++)
-                        {
-                            pointParent.transform.GetChild(i).tag = "PlayableTile";
-                        }
                     }
                 }
             }

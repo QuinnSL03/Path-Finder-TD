@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
     {
         count++;
         time += Time.deltaTime; //hi
-        if(count % 100 == 0 && PathFinder.done)
+        if(count % 100 == 0 && PathFinder2.done)
         {
             Instantiate(Enemy, new Vector3(8.27f, .401f, -10.6f), Quaternion.identity);
             

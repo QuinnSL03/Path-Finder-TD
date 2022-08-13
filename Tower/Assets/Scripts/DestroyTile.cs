@@ -49,7 +49,7 @@ public class DestroyTile : MonoBehaviour
                 //objectHit.GetComponent<Renderer>().material.SetColor("_Color", selectedTile);
 
             }
-            else if(objectHit != null && objectHit.CompareTag("PlayableTile"))
+            else if(objectHit != null && objectHit.CompareTag("Tile"))
             {
                 objectHit.GetComponent<Renderer>().material.SetColor("_Color", unselectedTile);
                 objectHit = null;

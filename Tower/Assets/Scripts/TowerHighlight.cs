@@ -35,9 +35,10 @@ public class TowerHighlight : MonoBehaviour
             
             if (Physics.Raycast(ray, out hit)) {
                 objectHit = hit.transform;
-                //Debug.Log("Hit!");
-                if(hit.transform.gameObject.CompareTag("PlayableTile"))
+                //Debug.Log("Hit Tile");
+                if(hit.transform.gameObject.CompareTag("Tile"))
                 {
+                    Debug.Log("Hit Tile");
                     gameObject.transform.position = objectHit.transform.position;
                     tile = true;
                 }
