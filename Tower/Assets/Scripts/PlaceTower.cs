@@ -47,10 +47,13 @@ public class PlaceTower : MonoBehaviour
     }
     public void DestroyTile(GameObject Tile)
     {
-        GameObject TowerHighlight = Tile;
-        TowerHighlight.GetComponent<DestroyTile>().tilesParent = this.tilesParent;
-        TowerHighlight.GetComponent<DestroyTile>().camera = this.camera;
-        Instantiate(TowerHighlight);
+        if(!GameController.start)
+        {
+            GameObject TowerHighlight = Tile;
+            TowerHighlight.GetComponent<DestroyTile>().tilesParent = this.tilesParent;
+            TowerHighlight.GetComponent<DestroyTile>().camera = this.camera;
+            Instantiate(TowerHighlight);
+        }
     }
     
     

@@ -5,19 +5,16 @@ using UnityEngine;
 public class EnemyFollower : MonoBehaviour
 {
     public float distanceTraveled;
-    GameObject path;
     public float speed = .1f;
     float time;
     int length; 
     int pointIndex = 0;
     public GameObject particle;
     public int health = 100;
-
    
     // Start is called before the first frame update
     void Start()
     {
-        path = GameObject.FindWithTag("PathPoint");
         TowerShooting.enemys.Add(gameObject);
         
     }
@@ -25,17 +22,17 @@ public class EnemyFollower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PathFinder.done)
+        if(PathFinder2.done)
         {
-            length = path.transform.childCount;
+            length = PathFinder2.pathTiles.Count;
         
             time += Time.deltaTime;
             distanceTraveled += .1f;
-            transform.LookAt(path.transform.GetChild(pointIndex).position);
+            transform.LookAt(PathFinder2.pathTiles[pointIndex].transform.position);
             transform.position += transform.forward * speed;
-            if(Vector3.Distance(path.transform.GetChild(pointIndex).position, transform.position) < .1)
+            if(Vector3.Distance(PathFinder2.pathTiles[pointIndex].transform.position, transform.position) < .1)
             {
-                gameObject.transform.position = path.transform.GetChild(pointIndex).position;
+                gameObject.transform.position = PathFinder2.pathTiles[pointIndex].transform.position;
                 pointIndex++;
                 //Debug.Log(pointIndex);
                 if(pointIndex == length)
