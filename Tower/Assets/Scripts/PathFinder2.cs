@@ -1,24 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PathFinder2 : MonoBehaviour
 {
-    public int width;
-    public int height;
+    public Transform endPoint;
+    private NavMeshAgent agent;
     // Start is called before the first frame update
-    void Start()
+    void Awake() 
     {
-        float[,] tilesmap = new float[width, height];
-        PathFind.Grid grid = new PathFind.Grid(width, height, tilesmap);
-        PathFind.Point _from = new PathFind.Point(1, 1);
-        PathFind.Point _to = new PathFind.Point(10, 10);
-        List<PathFind.Point> path = PathFind.Pathfinding.FindPath(grid, _from, _to);
+        agent = GetComponent<NavMeshAgent> ();
+    
     }
+       
 
+        
+    
+    
     // Update is called once per frame
     void Update()
     {
-
+        if(GameController.start)
+        {  
+            agent.SetDestination(endPoint.transform.position);
+        }
     }
+    
 }

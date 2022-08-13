@@ -71,7 +71,6 @@ public class DestroyTile : MonoBehaviour
                 //if(objectHit.CompareTag("st"))
                 {
                     //Destroys point and tile;
-                    Destroy(objectHit.transform.parent.gameObject);
                     Destroy(objectHit.transform.gameObject);
                     notBought = false;
                     GameController.money -= 25;
