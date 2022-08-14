@@ -12,7 +12,8 @@ TagManager:
   - Temp
   - GunTower
   - StartingTIle
-  - st
+  - Tile
+  - PathTile
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - glow
   - Water
   - UI
-  - 
+  - NotWalkable
   - 
   - 
   - 
