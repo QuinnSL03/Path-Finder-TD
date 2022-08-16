@@ -360,6 +360,7 @@
 "Assets/Scripts/EnemyFollower.cs"
 "Assets/Scripts/GameController.cs"
 "Assets/Scripts/MoneyCounter.cs"
+"Assets/Scripts/MultiShootTower.cs"
 "Assets/Scripts/NavMeshBaker.cs"
 "Assets/Scripts/PathFinder2.cs"
 "Assets/Scripts/PlaceTower.cs"

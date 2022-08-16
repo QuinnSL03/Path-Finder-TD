@@ -17,6 +17,7 @@ public class PathFinder2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        endPoint = GameController.endPoint.transform;
         pointParent = GameObject.FindWithTag("Point");
         for(int i = 0; i < pointParent.transform.childCount; i++)
         {
@@ -56,6 +57,7 @@ public class PathFinder2 : MonoBehaviour
                     {
                         // Done
                         done = true;
+                        Destroy(gameObject);
                     }
                 }
             }
