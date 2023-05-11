@@ -6,9 +6,14 @@ public class GameController : MonoBehaviour
 {
     public static int money = 200;
     public GameObject Enemy;
+    public GameObject StrongEnemy;
     public static GameObject endPoint;
     public GameObject end;
     float time;
+    private float spawnTimer1;
+    private float spawnTimer2;
+    private float spawnTimer3;
+    private float spawnRate = 2;
     int count;
     public static bool start = false;
     public GameObject startPosition;
@@ -23,7 +28,8 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        count++;
+        spawnTimer1 += Time.deltaTime;
+        spawnTimer2 += Time.deltaTime;
         time += Time.deltaTime;
         if(createNewPath)
         {
@@ -31,11 +37,16 @@ public class GameController : MonoBehaviour
             createNewPath = false;
         }
 
-        if(count % 100 == 0 && PathFinder2.done)
+        if(spawnTimer1 >= .5f && PathFinder2.done)
         {
             Instantiate(Enemy, startPosition.transform.position, Quaternion.identity);
+            spawnTimer1 = 0;
         }
-
+        if(spawnTimer2 >= 3f && PathFinder2.done)
+        {
+            Instantiate(StrongEnemy, startPosition.transform.position, Quaternion.identity);
+            spawnTimer2 = 0;
+        }
 
     }
     public static void setStart(bool s)

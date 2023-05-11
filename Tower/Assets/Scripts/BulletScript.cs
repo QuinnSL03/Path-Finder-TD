@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    public GameObject enemy;
+    GameObject enemy;
     
     // Start is called before the first frame update
     void Start()
@@ -32,7 +32,7 @@ public class BulletScript : MonoBehaviour
         {
             Vector3 targetPostition = new Vector3(enemy.transform.position.x, this.transform.position.y, enemy.transform.position.z) ;
             this.transform.LookAt(targetPostition);
-            transform.position += transform.forward * .3f;
+            transform.position += transform.forward * .5f;
 
         }
         else

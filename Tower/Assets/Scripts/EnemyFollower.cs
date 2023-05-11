@@ -5,12 +5,12 @@ using UnityEngine;
 public class EnemyFollower : MonoBehaviour
 {
     public float distanceTraveled;
-    public float speed = .1f;
+    public float speed = .05f;
     float time;
     int length; 
     int pointIndex = 0;
     public GameObject particle;
-    public int health = 100;
+    public int health = 25;
    
     // Start is called before the first frame update
     void Start()
