@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyFollower : MonoBehaviour
 {
     public float distanceTraveled;
-    public float speed = .05f;
+    public float speed = .02f;
     float time;
     int length; 
     int pointIndex = 0;

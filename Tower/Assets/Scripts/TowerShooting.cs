@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class TowerShooting : MonoBehaviour
 {
-    public float damage;
+    public int damage = 25;
     public static float range = 6;
     GameObject enemy = null;
     public static List<GameObject> enemys = new List<GameObject>();
     public GameObject bullet;
+    public int shootingFrequency;
+    public int towerType;
     int count;
+    bool secondShot = false;
+
+    private float time;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +24,7 @@ public class TowerShooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        count++;
+        time += Time.deltaTime;
         if(!gameObject.GetComponent<TowerHighlight>().notBought)
         {
             //Debug.Log(enemys.Count);
@@ -39,13 +44,39 @@ public class TowerShooting : MonoBehaviour
 
             if(enemy != null)
             {
-                Vector3 targetPostition = new Vector3(enemy.transform.position.x, this.transform.position.y, enemy.transform.position.z) ;
-                this.transform.LookAt(targetPostition);
-                if(count > 50)
+                //Gunner
+                if (towerType == 0)
                 {
-                    Shoot();
-                    count = 0;
-                    enemy.GetComponent<EnemyFollower>().health -= 25;
+                    Vector3 targetPostition = new Vector3(enemy.transform.position.x, this.transform.position.y,
+                        enemy.transform.position.z);
+                    this.transform.LookAt(targetPostition);
+                    if (time > .6f)
+                    {
+                        Shoot();
+                        time = 0;
+                        enemy.GetComponent<EnemyFollower>().health -= damage;
+                    }
+                }
+                //Double Gunner
+                if (towerType == 1)
+                {
+                    Vector3 targetPostition = new Vector3(enemy.transform.position.x, this.transform.position.y,
+                        enemy.transform.position.z);
+                    this.transform.LookAt(targetPostition);
+                    if (time > 1.2f && secondShot)
+                    {
+                        secondShot = false;
+                        DualShoot(0.2f);
+                        Debug.Log("1");
+                    }
+                    if (time > 1.5f)
+                    {
+                        secondShot = true;
+                        DualShoot(-0.2f);
+                        time = 0;
+                        Debug.Log("2");
+                    }
+                    
                 }
 
             }
@@ -57,6 +88,16 @@ public class TowerShooting : MonoBehaviour
     void Shoot()
     {
         Instantiate(bullet, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + .5f, gameObject.transform.position.z), transform.rotation * Quaternion.Euler (90f, 0f, 0f));
+        GetComponentInChildren<ShootAnimation>().shoot = true;
+    }
+
+    void DualShoot(float offset)
+    {
+        Instantiate(bullet, new Vector3(gameObject.transform.position.x + offset, gameObject.transform.position.y + .5f, gameObject.transform.position.z), transform.rotation * Quaternion.Euler (90f, 0f, 0f));
+        foreach (ShootAnimation gun in GetComponentsInChildren<ShootAnimation>())
+        {
+            gun.shoot = true;
+        }
         
     }
 }

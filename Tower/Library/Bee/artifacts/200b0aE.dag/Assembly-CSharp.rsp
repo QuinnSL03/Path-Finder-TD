@@ -364,6 +364,7 @@
 "Assets/Scripts/NavMeshBaker.cs"
 "Assets/Scripts/PathFinder2.cs"
 "Assets/Scripts/PlaceTower.cs"
+"Assets/Scripts/ShootAnimation.cs"
 "Assets/Scripts/StartButton.cs"
 "Assets/Scripts/TowerHighlight.cs"
 "Assets/Scripts/TowerShooting.cs"

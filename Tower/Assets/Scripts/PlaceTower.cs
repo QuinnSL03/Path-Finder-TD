@@ -33,9 +33,12 @@ public class PlaceTower : MonoBehaviour
         
     }
 
-    public void SpawnMinigun(GameObject Minigun)
+    public void SpawnDoubleGunner(GameObject DoubleGunner)
     {
-
+        GameObject TowerHighlight = DoubleGunner;
+        TowerHighlight.GetComponent<TowerHighlight>().tilesParent = this.tilesParent;
+        TowerHighlight.GetComponent<TowerHighlight>().camera = this.camera;
+        Instantiate(TowerHighlight);
     }
 
     public void SpawnArtillery(GameObject Artillery)

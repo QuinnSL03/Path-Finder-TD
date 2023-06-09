@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
     GameObject enemy;
+    public float speed;
     
     // Start is called before the first frame update
     void Start()
@@ -32,8 +34,11 @@ public class BulletScript : MonoBehaviour
         {
             Vector3 targetPostition = new Vector3(enemy.transform.position.x, this.transform.position.y, enemy.transform.position.z) ;
             this.transform.LookAt(targetPostition);
-            transform.position += transform.forward * .5f;
-
+            transform.position += transform.forward * speed;
+            if (Vector3.Distance(enemy.transform.position, transform.position) < .75f)
+            {
+                enemy.GetComponent<EnemyFollower>().health -= 25;
+            }
         }
         else
         {
