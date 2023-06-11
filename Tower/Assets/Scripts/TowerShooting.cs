@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TowerShooting : MonoBehaviour
 {
@@ -45,14 +46,16 @@ public class TowerShooting : MonoBehaviour
 
             if(enemy != null)
             {
+                Vector3 targetPostition = new Vector3(enemy.transform.position.x, this.transform.position.y, enemy.transform.position.z);
                 //Gunner
                 if (towerType == 0)
                 {
-                    Vector3 targetPostition = new Vector3(enemy.transform.position.x, this.transform.position.y, enemy.transform.position.z);
-                    this.transform.LookAt(targetPostition);
-                    if (time > .6f)
+                    
+                    
+                    if (time > 1f)
                     {
                         Shoot();
+                        this.transform.LookAt(targetPostition);
                         time = 0;
                         enemy.GetComponent<EnemyFollower>().health -= damage;
                     }
@@ -60,24 +63,36 @@ public class TowerShooting : MonoBehaviour
                 //Double Gunner
                 if (towerType == 1)
                 {
-                    
-                    Vector3 targetPostition = new Vector3(enemy.transform.position.x, this.transform.position.y, enemy.transform.position.z);
-                    this.transform.LookAt(targetPostition);
-                    if (time > 1.2f && secondShot)
+                    if (time > .5f && secondShot)
                     {
                         secondShot = false;
                         secondShotTime = time;
                         DualShoot(0.5f, 1);
+                        this.transform.LookAt(targetPostition);
                         Debug.Log("1");
                     }
-                    if (.3f < time - secondShotTime && !secondShot)
+                    if (.5f < time - secondShotTime && !secondShot)
                     {
                         secondShot = true;
                         DualShoot(-0.5f, 2);
+                        this.transform.LookAt(targetPostition);
                         time = 0;
                         Debug.Log("2");
                     }
                     
+                }
+
+                if (towerType == 2)
+                {
+                    transform.GetChild(0).Rotate(0f, 0f, Time.deltaTime * 300);
+
+                    if (time > .3f)
+                    {
+                        Shoot();
+                        this.transform.LookAt(targetPostition);
+                        time = 0;
+                        enemy.GetComponent<EnemyFollower>().health -= damage;
+                    }
                 }
 
             }
