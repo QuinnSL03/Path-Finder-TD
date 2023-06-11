@@ -12,7 +12,8 @@ public class TowerShooting : MonoBehaviour
     public int shootingFrequency;
     public int towerType;
     int count;
-    bool secondShot = false;
+    bool secondShot = true;
+    float secondShotTime = 0;
 
     private float time;
     // Start is called before the first frame update
@@ -47,8 +48,7 @@ public class TowerShooting : MonoBehaviour
                 //Gunner
                 if (towerType == 0)
                 {
-                    Vector3 targetPostition = new Vector3(enemy.transform.position.x, this.transform.position.y,
-                        enemy.transform.position.z);
+                    Vector3 targetPostition = new Vector3(enemy.transform.position.x, this.transform.position.y, enemy.transform.position.z);
                     this.transform.LookAt(targetPostition);
                     if (time > .6f)
                     {
@@ -60,19 +60,20 @@ public class TowerShooting : MonoBehaviour
                 //Double Gunner
                 if (towerType == 1)
                 {
-                    Vector3 targetPostition = new Vector3(enemy.transform.position.x, this.transform.position.y,
-                        enemy.transform.position.z);
+                    
+                    Vector3 targetPostition = new Vector3(enemy.transform.position.x, this.transform.position.y, enemy.transform.position.z);
                     this.transform.LookAt(targetPostition);
                     if (time > 1.2f && secondShot)
                     {
                         secondShot = false;
-                        DualShoot(0.2f);
+                        secondShotTime = time;
+                        DualShoot(0.5f, 1);
                         Debug.Log("1");
                     }
-                    if (time > 1.5f)
+                    if (.3f < time - secondShotTime && !secondShot)
                     {
                         secondShot = true;
-                        DualShoot(-0.2f);
+                        DualShoot(-0.5f, 2);
                         time = 0;
                         Debug.Log("2");
                     }
@@ -88,15 +89,24 @@ public class TowerShooting : MonoBehaviour
     void Shoot()
     {
         Instantiate(bullet, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + .5f, gameObject.transform.position.z), transform.rotation * Quaternion.Euler (90f, 0f, 0f));
-        GetComponentInChildren<ShootAnimation>().shoot = true;
+        foreach (ShootAnimation gun in GetComponentsInChildren<ShootAnimation>())
+        {
+            gun.shoot = true;
+        }
     }
 
-    void DualShoot(float offset)
+    void DualShoot(float offset, int i)
     {
         Instantiate(bullet, new Vector3(gameObject.transform.position.x + offset, gameObject.transform.position.y + .5f, gameObject.transform.position.z), transform.rotation * Quaternion.Euler (90f, 0f, 0f));
         foreach (ShootAnimation gun in GetComponentsInChildren<ShootAnimation>())
         {
-            gun.shoot = true;
+            if (i == 1)
+            {
+                gun.shoot = true;
+            }
+
+            i--;
+ 
         }
         
     }

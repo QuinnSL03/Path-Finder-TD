@@ -128,8 +128,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1645c99ab2f3041909c02fdc641bc560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 25
   bullet: {fileID: 6460863511665694184, guid: 9e442f307f48e48459fa7707787ef157, type: 3}
+  shootingFrequency: 0
+  towerType: 0
 --- !u!1 &5341893993500864601
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,6 +144,7 @@ GameObject:
   - component: {fileID: 5341893993500864605}
   - component: {fileID: 5341893993500864606}
   - component: {fileID: 5341893993500864607}
+  - component: {fileID: 4743199348272194449}
   m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
@@ -227,3 +230,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4743199348272194449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5341893993500864601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 573eece7f82754b128b77f5223375b02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  length: 0
+  speed: 0
+  shoot: 0

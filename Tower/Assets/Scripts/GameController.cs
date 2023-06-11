@@ -37,12 +37,12 @@ public class GameController : MonoBehaviour
             createNewPath = false;
         }
 
-        if(spawnTimer1 >= 1f && PathFinder2.done)
+        if(spawnTimer1 >= 0.5f && PathFinder2.done)
         {
             Instantiate(Enemy, startPosition.transform.position, Quaternion.identity);
             spawnTimer1 = 0;
         }
-        if(spawnTimer2 >= 40f && PathFinder2.done)
+        if(spawnTimer2 >= 20f && PathFinder2.done)
         {
             Instantiate(StrongEnemy, startPosition.transform.position, Quaternion.identity);
             spawnTimer2 = 0;
