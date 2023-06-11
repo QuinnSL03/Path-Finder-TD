@@ -57,7 +57,7 @@ public class TowerShooting : MonoBehaviour
                         Shoot();
                         this.transform.LookAt(targetPostition);
                         time = 0;
-                        enemy.GetComponent<EnemyFollower>().health -= damage;
+                        
                     }
                 }
                 //Double Gunner
@@ -67,14 +67,14 @@ public class TowerShooting : MonoBehaviour
                     {
                         secondShot = false;
                         secondShotTime = time;
-                        DualShoot(0.5f, 1);
+                        DualShoot(-0.5f, 1);
                         this.transform.LookAt(targetPostition);
                         Debug.Log("1");
                     }
                     if (.5f < time - secondShotTime && !secondShot)
                     {
                         secondShot = true;
-                        DualShoot(-0.5f, 2);
+                        DualShoot(0.5f, 2);
                         this.transform.LookAt(targetPostition);
                         time = 0;
                         Debug.Log("2");
@@ -84,14 +84,14 @@ public class TowerShooting : MonoBehaviour
 
                 if (towerType == 2)
                 {
-                    transform.GetChild(0).Rotate(0f, 0f, Time.deltaTime * 300);
+                    transform.GetChild(0).Rotate(0f, 0f, Time.deltaTime * 400);
 
-                    if (time > .3f)
+                    if (time > .1f)
                     {
                         Shoot();
                         this.transform.LookAt(targetPostition);
                         time = 0;
-                        enemy.GetComponent<EnemyFollower>().health -= damage;
+                     
                     }
                 }
 
@@ -108,6 +108,7 @@ public class TowerShooting : MonoBehaviour
         {
             gun.shoot = true;
         }
+        
     }
 
     void DualShoot(float offset, int i)

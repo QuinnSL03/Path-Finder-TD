@@ -56,8 +56,8 @@ public class TowerHighlight : MonoBehaviour
 
             // if left click, buy and place
             if(Input.GetMouseButtonDown(0) && GameController.money - 50 >= 0)
-            { 
-                if(tile)
+            {
+                if (tile)
                 {
                     gameObject.tag = "GunTower";
                     notBought = false;
@@ -68,6 +68,7 @@ public class TowerHighlight : MonoBehaviour
                     objectHit.tag = "OccupiedTile";
                     objectHit.gameObject.layer = 6;
                 }
+
             }
             //if right click, cancel
             if(Input.GetMouseButtonDown(1))

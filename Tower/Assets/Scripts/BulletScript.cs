@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class BulletScript : MonoBehaviour
 {
     GameObject enemy;
     public float speed;
+    public int damage;
+    private int enemyIndex;
     
     // Start is called before the first frame update
     void Start()
@@ -18,6 +21,7 @@ public class BulletScript : MonoBehaviour
                 if(Vector3.Distance(TowerShooting.enemys[i].transform.position, transform.position) < TowerShooting.range)
                 {
                     enemy = TowerShooting.enemys[i];
+                    enemyIndex = i;
                     i = 9999;
                         
                 }
@@ -37,17 +41,16 @@ public class BulletScript : MonoBehaviour
             transform.position += transform.forward * speed;
             if (Vector3.Distance(enemy.transform.position, transform.position) < .75f)
             {
-                enemy.GetComponent<EnemyFollower>().health -= 25;
+                enemy.GetComponent<EnemyFollower>().health -= damage;
+                
+                Destroy(gameObject);
             }
         }
         else
         {
-            Destroy(gameObject);
+            enemy = TowerShooting.enemys[enemyIndex+1];
         }
         
     }
-    private void OnCollisionStay(Collision other) {
-        Debug.Log("Deleted!");
-        Destroy(gameObject);
-    }
+    
 }
