@@ -12,18 +12,8 @@ public class PlaceTower : MonoBehaviour
     public GameObject tilesParent;
     GameObject TowerHighlight;
     float minDistanceMouse = 1.9f;
-        Transform objectHit;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    Transform objectHit;
+    
     public void SpawnTower(GameObject Tower)
     {
         GameObject TowerHighlight = Tower;

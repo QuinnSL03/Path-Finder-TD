@@ -67,14 +67,14 @@ public class TowerShooting : MonoBehaviour
                     {
                         secondShot = false;
                         secondShotTime = time;
-                        DualShoot(-0.5f, 1);
+                        DualShoot(1);
                         this.transform.LookAt(targetPostition);
                         Debug.Log("1");
                     }
                     if (.5f < time - secondShotTime && !secondShot)
                     {
                         secondShot = true;
-                        DualShoot(0.5f, 2);
+                        DualShoot(2);
                         this.transform.LookAt(targetPostition);
                         time = 0;
                         Debug.Log("2");
@@ -111,9 +111,9 @@ public class TowerShooting : MonoBehaviour
         
     }
 
-    void DualShoot(float offset, int i)
+    void DualShoot(int i)
     {
-        Instantiate(bullet, new Vector3(gameObject.transform.position.x + offset, gameObject.transform.position.y + .5f, gameObject.transform.position.z), transform.rotation * Quaternion.Euler (90f, 0f, 0f));
+        Instantiate(bullet, new Vector3(gameObject.transform.GetChild(i-1).transform.position.x, gameObject.transform.position.y + .5f, gameObject.transform.position.z), transform.rotation * Quaternion.Euler (90f, 0f, 0f));
         foreach (ShootAnimation gun in GetComponentsInChildren<ShootAnimation>())
         {
             if (i == 1)

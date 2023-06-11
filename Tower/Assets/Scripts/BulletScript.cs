@@ -48,7 +48,15 @@ public class BulletScript : MonoBehaviour
         }
         else
         {
-            enemy = TowerShooting.enemys[enemyIndex+1];
+            if (enemyIndex < TowerShooting.enemys.Count - 1 && TowerShooting.enemys.Count > 1)
+            {
+                enemy = TowerShooting.enemys[enemyIndex+1];
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
         }
         
     }
