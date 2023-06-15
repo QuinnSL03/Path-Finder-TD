@@ -114,8 +114,8 @@ MonoBehaviour:
   distanceTraveled: 0
   speed: 0.05
   particle: {fileID: 3050749488451833350, guid: 8c39797b8308e4c2fb4fc420e42b3f80, type: 3}
-  health: 50
-  normalColor: {r: 1, g: 0.596, b: 0, a: 0}
+  health: 100
+  normalColor: {r: 0.79215693, g: 0.22352943, b: 0.13725491, a: 0}
 --- !u!54 &-8763929087307700243
 Rigidbody:
   m_ObjectHideFlags: 0

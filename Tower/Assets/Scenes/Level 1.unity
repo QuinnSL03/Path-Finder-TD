@@ -5933,6 +5933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemy: {fileID: 1069652991343377762, guid: 996334b0062b34659a4370c55cbb4d8a, type: 3}
   StrongEnemy: {fileID: 1069652991343377762, guid: f260ec862387144a7910cd406df928f4, type: 3}
+  FastEnemy: {fileID: 1069652991343377762, guid: 93b0a7ba891f44a868262ed8de92522e, type: 3}
   end: {fileID: 1207377064}
   startPosition: {fileID: 828981163}
   pathFinder: {fileID: 879150929719475984, guid: 98642b8f879a44cde8f09886c0abd9fc, type: 3}

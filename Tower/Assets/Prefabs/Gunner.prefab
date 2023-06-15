@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilesParent: {fileID: 0}
+  cost: 100
   notBought: 1
   camera: {fileID: 0}
 --- !u!114 &5341893994188533392
@@ -242,6 +243,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573eece7f82754b128b77f5223375b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 0
-  speed: 0
   shoot: 0

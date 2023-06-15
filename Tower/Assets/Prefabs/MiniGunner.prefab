@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilesParent: {fileID: 0}
+  cost: 300
   notBought: 1
   camera: {fileID: 0}
 --- !u!114 &5341893994188533392

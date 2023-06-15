@@ -5,6 +5,7 @@ using UnityEngine;
 public class TowerHighlight : MonoBehaviour
 {
     public GameObject tilesParent;
+    public int cost;
     GameObject TowerObj;
     float minDistanceMouse = 1.9f;
     Transform objectHit;
@@ -55,13 +56,13 @@ public class TowerHighlight : MonoBehaviour
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             // if left click, buy and place
-            if(Input.GetMouseButtonDown(0) && GameController.money - 50 >= 0)
+            if(Input.GetMouseButtonDown(0) && GameController.money - cost >= 0)
             {
                 if (tile)
                 {
                     gameObject.tag = "GunTower";
                     notBought = false;
-                    GameController.money -= 50;
+                    GameController.money -= cost;
                     gameObject.transform.position = objectHit.transform.position;
                     Debug.Log("Placed!");
                     Debug.Log(objectHit.name);

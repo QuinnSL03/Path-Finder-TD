@@ -14,6 +14,7 @@ public class PlaceTower : MonoBehaviour
     float minDistanceMouse = 1.9f;
     Transform objectHit;
     
+    
     public void SpawnTower(GameObject Tower)
     {
         GameObject TowerHighlight = Tower;
