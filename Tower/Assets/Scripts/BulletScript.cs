@@ -38,7 +38,7 @@ public class BulletScript : MonoBehaviour
         {
             Vector3 targetPostition = new Vector3(enemy.transform.position.x, this.transform.position.y, enemy.transform.position.z) ;
             this.transform.LookAt(targetPostition);
-            transform.position += transform.forward * speed;
+            transform.position += transform.forward * (speed * Time.deltaTime);
             if (Vector3.Distance(enemy.transform.position, transform.position) < .75f)
             {
                 enemy.GetComponent<EnemyFollower>().health -= damage;

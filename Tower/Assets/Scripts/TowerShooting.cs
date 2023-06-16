@@ -12,7 +12,6 @@ public class TowerShooting : MonoBehaviour
     public GameObject bullet;
     public int shootingFrequency;
     public int towerType;
-    int count;
     bool secondShot = true;
     float secondShotTime = 0;
 

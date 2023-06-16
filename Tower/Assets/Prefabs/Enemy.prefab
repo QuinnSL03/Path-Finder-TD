@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceTraveled: 0
-  speed: 0.05
+  speed: 5
   particle: {fileID: 3050749488451833350, guid: 8c39797b8308e4c2fb4fc420e42b3f80, type: 3}
   health: 50
   normalColor: {r: 0.5411765, g: 0.13333334, b: 0.86274517, a: 0}

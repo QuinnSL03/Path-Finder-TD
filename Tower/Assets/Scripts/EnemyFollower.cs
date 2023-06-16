@@ -52,9 +52,9 @@ public class EnemyFollower : MonoBehaviour
             length = PathFinder2.pathTiles.Count;
         
             time += Time.deltaTime;
-            distanceTraveled += speed;
+            distanceTraveled += speed * Time.deltaTime;
             transform.LookAt(PathFinder2.pathTiles[pointIndex].transform.position);
-            transform.position += transform.forward * speed;
+            transform.position += transform.forward * (speed * Time.deltaTime);
             if(Vector3.Distance(PathFinder2.pathTiles[pointIndex].transform.position, transform.position) < .1)
             {
                 gameObject.transform.position = PathFinder2.pathTiles[pointIndex].transform.position;

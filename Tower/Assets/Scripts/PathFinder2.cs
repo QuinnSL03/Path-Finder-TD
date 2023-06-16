@@ -14,6 +14,7 @@ public class PathFinder2 : MonoBehaviour
     public static bool done = false;
     GameObject pointParent;
 
+    public static bool updateNav = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,8 +32,9 @@ public class PathFinder2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameController.start)
+        if (GameController.start || updateNav)
         {
+            updateNav = false;
             RaycastHit hit;
             agent.SetDestination(endPoint.transform.position);
             if (Physics.Raycast(transform.position, -Vector3.up, out hit))
