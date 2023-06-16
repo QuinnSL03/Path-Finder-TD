@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
     public GameObject pathFinder;
     public static bool createNewPath = false;
 
-    private int wave;
+    private int wave = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,18 +32,24 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (start)
-        {
-            time += Time.deltaTime;
-        }
-        
         if (createNewPath)
         {
             Instantiate(pathFinder, startPosition.transform.position, Quaternion.identity);
             createNewPath = false;
         }
 
-        wave = (int)(time * .05f) + 1;
+        if (PathFinder2.done && start)
+        {
+            time += Time.deltaTime;
+            if (wave < (int)(time * .05f) +1 && wave != 0)
+            {
+                createNewPath = true;
+                start = false;
+            }
+            wave = (int)(time * .05f) + 1;
+            
+            
+        }
         //This Wave System is VERY inefficient but IDC, i like the way it reads and that is all that matters! :).
         switch (wave)
         {

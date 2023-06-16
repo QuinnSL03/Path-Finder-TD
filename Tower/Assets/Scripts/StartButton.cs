@@ -25,7 +25,7 @@ public class StartButton : MonoBehaviour
             Debug.Log("Destroyed Temps" + taggedObjects.Length);
 	        Destroy(obj);
         }
-        gameObject.tag = "Temp";
+       
     }
     
 }

@@ -9,6 +9,7 @@ public class PathFinder2 : MonoBehaviour
     public NavMeshAgent agent;
     Transform tileObject;
     Color color = new Color(0.2f, 1f, 0.2f, 1f);
+    private Color white = new Color(254f, 254f, 254f);
     public static List<GameObject> pathTiles = new List<GameObject>();
     int index = 0;
     public static bool done = false;
@@ -18,6 +19,19 @@ public class PathFinder2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (pathTiles.Count > 0)
+        {
+            foreach (GameObject tile in pathTiles)
+            {
+                tile.GetComponent<Renderer>().material.SetColor("_Color", white);
+                if (tile.CompareTag("PathTile"))
+                {
+                    tile.tag = "Tile";
+                }
+                    
+                //pathTiles.Remove(tile.gameObject);
+            }
+        }
         endPoint = GameController.endPoint.transform;
         pointParent = GameObject.FindWithTag("Point");
         for(int i = 0; i < pointParent.transform.childCount; i++)
@@ -27,14 +41,14 @@ public class PathFinder2 : MonoBehaviour
                 pointParent.transform.GetChild(i).transform.GetChild(0).tag = "Tile";
             }
         }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameController.start || updateNav)
+        if (GameController.start)
         {
-            updateNav = false;
             RaycastHit hit;
             agent.SetDestination(endPoint.transform.position);
             if (Physics.Raycast(transform.position, -Vector3.up, out hit))
@@ -59,7 +73,7 @@ public class PathFinder2 : MonoBehaviour
                     {
                         // Done
                         done = true;
-                        Destroy(gameObject);
+                     
                     }
                 }
             }
