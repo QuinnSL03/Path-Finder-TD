@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public class NavMeshBaker : MonoBehaviour
 {
     public NavMeshSurface surface;
-    public bool built = false;
+
+    public static bool build = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +17,15 @@ public class NavMeshBaker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameController.start && !built)
+        if(GameController.start && build)
         {
             surface.BuildNavMesh();
-            built = true;
+            build = false;
         }
+    }
+
+    public static void BuildNav()
+    {
+        
     }
 }
