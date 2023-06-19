@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class StraightBullet : MonoBehaviour
     public float speed;
     public int damage;
     private int enemyIndex;
+    private float count = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -19,7 +21,12 @@ public class StraightBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += transform.forward * (speed * Time.deltaTime);
+        count += Time.deltaTime;
+        if (count > 2.5f)
+        {
+            Destroy(gameObject);
+        }
+            transform.position += transform.forward * (speed * Time.deltaTime);
         
 
         

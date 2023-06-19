@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TowerHighlight : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class TowerHighlight : MonoBehaviour
     public bool notBought = true;
     bool tile;
 
+    private int count = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,15 +31,16 @@ public class TowerHighlight : MonoBehaviour
     void Update()
     {
         //all this code only runs before you buy the tower
-        if(notBought)
+        if (notBought)
         {
             RaycastHit hit;
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-            
-            if (Physics.Raycast(ray, out hit)) {
+
+            if (Physics.Raycast(ray, out hit))
+            {
                 objectHit = hit.transform;
                 //Debug.Log("Hit Tile");
-                if(hit.transform.gameObject.CompareTag("Tile"))
+                if (hit.transform.gameObject.CompareTag("Tile"))
                 {
                     Debug.Log("Hit Tile");
                     gameObject.transform.position = objectHit.transform.position;
@@ -56,7 +59,7 @@ public class TowerHighlight : MonoBehaviour
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             // if left click, buy and place
-            if(Input.GetMouseButtonDown(0) && GameController.money - cost >= 0)
+            if (Input.GetMouseButtonDown(0) && GameController.money - cost >= 0)
             {
                 if (tile)
                 {
@@ -71,14 +74,21 @@ public class TowerHighlight : MonoBehaviour
                 }
 
             }
+
             //if right click, cancel
-            if(Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1))
             {
                 Destroy(gameObject);
             }
+
+            if (Input.GetKeyUp("r"))
+            {
+                transform.rotation = Quaternion.Euler(0f, 45f * count, 0f);
+                count++;
+            }
         }
+
     }
-    
 }
 
     

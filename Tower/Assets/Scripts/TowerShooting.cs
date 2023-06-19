@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+
 public class TowerShooting : MonoBehaviour
 {
     public int damage = 25;
@@ -15,7 +16,7 @@ public class TowerShooting : MonoBehaviour
     bool secondShot = true;
     float secondShotTime = 0;
     private int count = 0;
-
+    
     private float time;
 
     // Start is called before the first frame update
@@ -87,18 +88,7 @@ public class TowerShooting : MonoBehaviour
                 }
 
                 //Mini Gun
-                if (towerType == 2)
-                {
-                    transform.GetChild(0).Rotate(0f, 0f, Time.deltaTime * 400);
-
-                    if (time > .1f)
-                    {
-                        Shoot();
-                        this.transform.LookAt(targetPostition);
-                        time = 0;
-
-                    }
-                }
+                
                 //Hex Gun
 
                 if (towerType == 3)
@@ -113,16 +103,42 @@ public class TowerShooting : MonoBehaviour
                 }
 
             }
+            if (towerType == 2 && GameController.start)
+            {
+                transform.GetChild(0).Rotate(0f, 0f, Time.deltaTime * 400);
+
+                if (time > .1f)
+                {
+                    MiniShoot();
+                    //this.transform.LookAt(targetPostition);
+                    time = 0;
+
+                }
+            }
         }
 
 
     }
 
+    void MiniShoot()
+    {
+        
+        Instantiate(bullet,
+            new Vector3(gameObject.transform.GetChild(0).transform.position.x,
+                gameObject.transform.position.y + .5f, gameObject.transform.position.z),
+            gameObject.transform.GetChild(0).rotation);
+        foreach (ShootAnimation gun in GetComponentsInChildren<ShootAnimation>())
+        {
+            gun.shoot = true;
+        }
+    }
+
     void Shoot()
     {
         Instantiate(bullet,
-            new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + .5f,
-                gameObject.transform.position.z), transform.rotation * Quaternion.Euler(90f, 0f, 0f));
+            new Vector3(gameObject.transform.GetChild(0).transform.position.x,
+                gameObject.transform.position.y + .5f, gameObject.transform.position.z),
+            gameObject.transform.GetChild(0).rotation);
         foreach (ShootAnimation gun in GetComponentsInChildren<ShootAnimation>())
         {
             gun.shoot = true;
