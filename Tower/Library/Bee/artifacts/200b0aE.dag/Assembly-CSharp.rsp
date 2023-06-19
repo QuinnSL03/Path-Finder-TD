@@ -367,6 +367,7 @@
 "Assets/Scripts/PlaceTower.cs"
 "Assets/Scripts/ShootAnimation.cs"
 "Assets/Scripts/StartButton.cs"
+"Assets/Scripts/StraightBullet.cs"
 "Assets/Scripts/TowerHighlight.cs"
 "Assets/Scripts/TowerShooting.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"

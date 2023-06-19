@@ -14,51 +14,55 @@ public class TowerShooting : MonoBehaviour
     public int towerType;
     bool secondShot = true;
     float secondShotTime = 0;
+    private int count = 0;
 
     private float time;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         time += Time.deltaTime;
-        if(!gameObject.GetComponent<TowerHighlight>().notBought)
+        if (!gameObject.GetComponent<TowerHighlight>().notBought)
         {
             //Debug.Log(enemys.Count);
             //finds the closest and farthest down the path enemy
-            if(enemys.Count > 0)
+            if (enemys.Count > 0)
             {
-                for(int i = 0; i < enemys.Count; i++)
+                for (int i = 0; i < enemys.Count; i++)
                 {
-                    if(Vector3.Distance(enemys[i].transform.position, transform.position) < range)
+                    if (Vector3.Distance(enemys[i].transform.position, transform.position) < range)
                     {
                         enemy = enemys[i];
                         i = 9999;
-                        
+
                     }
                 }
             }
 
-            if(enemy != null)
+            if (enemy != null)
             {
-                Vector3 targetPostition = new Vector3(enemy.transform.position.x, this.transform.position.y, enemy.transform.position.z);
+                Vector3 targetPostition = new Vector3(enemy.transform.position.x, this.transform.position.y,
+                    enemy.transform.position.z);
                 //Gunner
                 if (towerType == 0)
                 {
-                    
-                    
+
+
                     if (time > 1f)
                     {
                         Shoot();
                         this.transform.LookAt(targetPostition);
                         time = 0;
-                        
+
                     }
                 }
+
                 //Double Gunner
                 if (towerType == 1)
                 {
@@ -70,6 +74,7 @@ public class TowerShooting : MonoBehaviour
                         this.transform.LookAt(targetPostition);
                         Debug.Log("1");
                     }
+
                     if (.5f < time - secondShotTime && !secondShot)
                     {
                         secondShot = true;
@@ -78,9 +83,10 @@ public class TowerShooting : MonoBehaviour
                         time = 0;
                         Debug.Log("2");
                     }
-                    
+
                 }
 
+                //Mini Gun
                 if (towerType == 2)
                 {
                     transform.GetChild(0).Rotate(0f, 0f, Time.deltaTime * 400);
@@ -90,29 +96,46 @@ public class TowerShooting : MonoBehaviour
                         Shoot();
                         this.transform.LookAt(targetPostition);
                         time = 0;
-                     
+
+                    }
+                }
+                //Hex Gun
+
+                if (towerType == 3)
+                {
+                    if (time > .5f)
+                    {
+                        HexShoot();
+                        //this.transform.LookAt(targetPostition);
+                        time = 0;
+
                     }
                 }
 
             }
         }
 
-        
+
     }
 
     void Shoot()
     {
-        Instantiate(bullet, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + .5f, gameObject.transform.position.z), transform.rotation * Quaternion.Euler (90f, 0f, 0f));
+        Instantiate(bullet,
+            new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + .5f,
+                gameObject.transform.position.z), transform.rotation * Quaternion.Euler(90f, 0f, 0f));
         foreach (ShootAnimation gun in GetComponentsInChildren<ShootAnimation>())
         {
             gun.shoot = true;
         }
-        
+
     }
 
     void DualShoot(int i)
     {
-        Instantiate(bullet, new Vector3(gameObject.transform.GetChild(i-1).transform.position.x, gameObject.transform.position.y + .5f, gameObject.transform.position.z), transform.rotation * Quaternion.Euler (90f, 0f, 0f));
+        Instantiate(bullet,
+            new Vector3(gameObject.transform.GetChild(i - 1).transform.position.x,
+                gameObject.transform.position.y + .5f, gameObject.transform.position.z),
+            transform.rotation * Quaternion.Euler(90f, 0f, 0f));
         foreach (ShootAnimation gun in GetComponentsInChildren<ShootAnimation>())
         {
             if (i == 1)
@@ -121,8 +144,24 @@ public class TowerShooting : MonoBehaviour
             }
 
             i--;
- 
+
         }
-        
+
+    }
+
+    void HexShoot()
+    {
+        int i = 0;
+        //transform.GetChild(i).GetComponent<ShootAnimation>().shoot = true;
+        foreach (ShootAnimation gun in GetComponentsInChildren<ShootAnimation>())
+        {
+            Instantiate(bullet,
+                new Vector3(gameObject.transform.GetChild(i).transform.position.x,
+                    gameObject.transform.position.y + .5f, gameObject.transform.position.z),
+                gameObject.transform.GetChild(i).rotation);
+            i++;
+            gun.shoot = true;
+
+        }
     }
 }
