@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class GameController : MonoBehaviour
 {
     public static int money = 200;
+    public static int health;
     public GameObject Enemy;
     public GameObject StrongEnemy;
     public GameObject FastEnemy;
@@ -35,6 +37,11 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health < 0)
+        {
+            SceneManager.LoadScene(2);
+        }
+
         if (createNewPath)
         {
             

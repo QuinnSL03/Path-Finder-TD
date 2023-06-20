@@ -23,6 +23,11 @@ public class PlaceTower : MonoBehaviour
         Instantiate(TowerHighlight);
         
     }
+
+    public void SellTower()
+    {
+        
+    }
     public void DestroyTile(GameObject Tile)
     {
         if(!GameController.start)
