@@ -11,7 +11,7 @@ public class EnemyFollower : MonoBehaviour
     int pointIndex = 0;
     private int tempHealth;
     public GameObject particle;
-    public int health = 25;
+    public int health = 1000;
     Color damageIndicator = new Color(0.8868628f, 0.4f, 0.4196078f, .75f);
     public Color normalColor = new Color();
     private Renderer renderer;
@@ -63,6 +63,7 @@ public class EnemyFollower : MonoBehaviour
                 if(pointIndex == length)
                 {
                     //reached end point, take life.
+                    GameController.health -= 1;
                     TowerShooting.enemys.Remove(gameObject);
                     Destroy(gameObject);
                     //use different particle

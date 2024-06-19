@@ -12,11 +12,12 @@ public class TowerHighlight : MonoBehaviour
     Transform objectHit;
     public bool notBought = true;
     bool tile;
-
+    Collider TowerCollider;
     private int count = 1;
     // Start is called before the first frame update
     void Start()
     {
+        TowerCollider = GetComponent<Collider>();
         GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag("Temp");   
         foreach (GameObject obj in taggedObjects) 
         {
@@ -71,6 +72,7 @@ public class TowerHighlight : MonoBehaviour
                     Debug.Log(objectHit.name);
                     objectHit.tag = "OccupiedTile";
                     objectHit.gameObject.layer = 6;
+                    TowerCollider.enabled = !TowerCollider.enabled;
                 }
 
             }

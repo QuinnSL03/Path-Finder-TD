@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     public static int money = 200;
-    public static int health;
+    public static int health = 25;
+    public static GameObject FocusedTower;
     public GameObject Enemy;
     public GameObject StrongEnemy;
     public GameObject FastEnemy;
@@ -26,6 +27,7 @@ public class GameController : MonoBehaviour
     public static bool createNewPath = false;
     private Color white = new Color(254f, 254f, 254f);
     private int wave = 0;
+    
 
     private bool temp = true;
     // Start is called before the first frame update
@@ -171,16 +173,12 @@ public class GameController : MonoBehaviour
     }
     private void Wave3()
     {
-        if(time - spawnTimer1 >= .3f && PathFinder2.done)
+        if(time - spawnTimer1 >= 0.25f && PathFinder2.done)
         {
             Instantiate(Enemy, startPosition.transform.position, Quaternion.identity);
             spawnTimer1 = time;
         }
-        if(time - spawnTimer2 >= 10f && PathFinder2.done)
-        {
-            Instantiate(StrongEnemy, startPosition.transform.position, Quaternion.identity);
-            spawnTimer2 = time;
-        }
+ 
         //Debug.Log("Wave 3");
     }
     private void Wave4()
@@ -229,7 +227,21 @@ public class GameController : MonoBehaviour
     }
     private void Wave7()
     {
-        
+        if(time - spawnTimer1 >= 2f && PathFinder2.done)
+        {
+            Instantiate(Enemy, startPosition.transform.position, Quaternion.identity);
+            spawnTimer1 = time;
+        }
+        if(time - spawnTimer2 >= 1f && PathFinder2.done)
+        {
+            Instantiate(StrongEnemy, startPosition.transform.position, Quaternion.identity);
+            spawnTimer2 = time;
+        }
+        if(time - spawnTimer3 >= 1f && PathFinder2.done)
+        {
+            Instantiate(FastEnemy, startPosition.transform.position, Quaternion.identity);
+            spawnTimer3 = time;
+        }
     }
     private void Wave8()
     {

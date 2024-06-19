@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -179,5 +180,10 @@ public class TowerShooting : MonoBehaviour
             gun.shoot = true;
 
         }
+    }
+
+    void OnMouseDown()
+    {
+        GameController.FocusedTower = gameObject;
     }
 }

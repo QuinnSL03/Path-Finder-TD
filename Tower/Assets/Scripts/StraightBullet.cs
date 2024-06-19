@@ -40,6 +40,7 @@ public class StraightBullet : MonoBehaviour
             collision.transform.GetComponent<EnemyFollower>().health -= damage;
             Destroy(gameObject);
         }
+        
         Destroy(gameObject);
     }
 }
