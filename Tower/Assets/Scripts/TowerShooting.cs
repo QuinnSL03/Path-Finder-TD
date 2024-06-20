@@ -7,8 +7,10 @@ using UnityEngine.UIElements;
 
 public class TowerShooting : MonoBehaviour
 {
+    public int dmgDone;
     public int damage = 25;
     public static float range = 6;
+    public int tier = 1;
     GameObject enemy = null;
     public static List<GameObject> enemys = new List<GameObject>();
     public GameObject bullet;
@@ -128,6 +130,7 @@ public class TowerShooting : MonoBehaviour
             new Vector3(gameObject.transform.GetChild(0).transform.position.x,
                 gameObject.transform.position.y + .5f, gameObject.transform.position.z),
             gameObject.transform.GetChild(0).rotation);
+        dmgDone += 10;
         foreach (ShootAnimation gun in GetComponentsInChildren<ShootAnimation>())
         {
             gun.shoot = true;
@@ -140,6 +143,7 @@ public class TowerShooting : MonoBehaviour
             new Vector3(gameObject.transform.GetChild(0).transform.position.x,
                 gameObject.transform.position.y + .5f, gameObject.transform.position.z),
             gameObject.transform.GetChild(0).rotation);
+        dmgDone += 25;
         foreach (ShootAnimation gun in GetComponentsInChildren<ShootAnimation>())
         {
             gun.shoot = true;
@@ -153,6 +157,7 @@ public class TowerShooting : MonoBehaviour
             new Vector3(gameObject.transform.GetChild(i - 1).transform.position.x,
                 gameObject.transform.position.y + .5f, gameObject.transform.position.z),
             transform.rotation * Quaternion.Euler(90f, 0f, 0f));
+        dmgDone += 25;
         foreach (ShootAnimation gun in GetComponentsInChildren<ShootAnimation>())
         {
             if (i == 1)
@@ -176,7 +181,9 @@ public class TowerShooting : MonoBehaviour
                 new Vector3(gameObject.transform.GetChild(i).transform.position.x,
                     gameObject.transform.position.y + .5f, gameObject.transform.position.z),
                 gameObject.transform.GetChild(i).rotation);
+            dmgDone += 25;
             i++;
+            dmgDone += 1;
             gun.shoot = true;
 
         }

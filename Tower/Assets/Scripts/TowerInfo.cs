@@ -15,16 +15,7 @@ public class TowerInfo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        myText.text = "Damage dealt = " + GameController.FocusedTower.GetComponent<TowerShooting>().dmgDone;
     }
     
-    public void setTowerType(string type)
-    {
-        myText.text = type;
-    }
-    
-    public void setDmgDone(int dmg)
-    {
-        myText.text = "" + dmg;
-    }
 }
