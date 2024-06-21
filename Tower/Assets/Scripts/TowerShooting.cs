@@ -19,7 +19,6 @@ public class TowerShooting : MonoBehaviour
     bool secondShot = true;
     float secondShotTime = 0;
     private int count = 0;
-    
     private float time;
 
     // Start is called before the first frame update
@@ -58,10 +57,10 @@ public class TowerShooting : MonoBehaviour
                 {
 
 
-                    if (time > 1f)
+                    if (time > shootingFrequency * 0.25f)
                     {
-                        Shoot();
                         this.transform.LookAt(targetPostition);
+                        Shoot();
                         time = 0;
 
                     }

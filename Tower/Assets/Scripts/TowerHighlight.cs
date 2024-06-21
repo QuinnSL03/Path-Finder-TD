@@ -14,6 +14,8 @@ public class TowerHighlight : MonoBehaviour
     bool tile;
     Collider TowerCollider;
     private int count = 1;
+    public Camera camera;
+    public bool upgradeTower;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,11 +28,19 @@ public class TowerHighlight : MonoBehaviour
         }
         gameObject.tag = "Temp";
     }
-    public Camera camera;
 
     // Update is called once per frame
     void Update()
     {
+        if (upgradeTower)
+        {
+            gameObject.tag = "GunTower";
+            notBought = false;
+            GameController.money -= cost;
+            Debug.Log("Placed!");
+            TowerCollider.enabled = !TowerCollider.enabled;
+            upgradeTower = false;
+        }
         //all this code only runs before you buy the tower
         if (notBought)
         {

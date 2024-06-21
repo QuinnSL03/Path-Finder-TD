@@ -375,6 +375,7 @@
 "Assets/Scripts/TowerInfo.cs"
 "Assets/Scripts/TowerShooting.cs"
 "Assets/Scripts/TowerTier.cs"
+"Assets/Scripts/UpgradeTower.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01_UGUI.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark02.cs"

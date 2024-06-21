@@ -15,7 +15,11 @@ public class TowerTier : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        myText.text = "Tier = " + GameController.FocusedTower.GetComponent<TowerShooting>().tier;
+        if (!(GameController.FocusedTower == null))
+        {
+            myText.text = "Tier = " + GameController.FocusedTower.GetComponent<TowerShooting>().tier;
+        } 
+            
     }
     
 }
