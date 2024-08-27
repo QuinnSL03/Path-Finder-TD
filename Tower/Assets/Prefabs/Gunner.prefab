@@ -117,6 +117,7 @@ MonoBehaviour:
   cost: 100
   notBought: 1
   camera: {fileID: 0}
+  upgradeTower: 0
 --- !u!114 &5341893994188533392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +134,7 @@ MonoBehaviour:
   damage: 25
   tier: 1
   bullet: {fileID: 6460863511665694184, guid: 9e442f307f48e48459fa7707787ef157, type: 3}
-  shootingFrequency: 1
+  shootingFrequency: 4
   towerType: 0
 --- !u!1 &5341893993500864601
 GameObject:

@@ -9,6 +9,7 @@ public class StraightBullet : MonoBehaviour
     GameObject enemy;
     public float speed;
     public int damage;
+    public float destroyTime;
     private int enemyIndex;
     private float count = 0;
     
@@ -22,7 +23,7 @@ public class StraightBullet : MonoBehaviour
     void Update()
     {
         count += Time.deltaTime;
-        if (count > 2.5f)
+        if (count > destroyTime)
         {
             Destroy(gameObject);
         }

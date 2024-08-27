@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilesParent: {fileID: 0}
-  cost: 200
+  cost: 150
   notBought: 1
   camera: {fileID: 0}
   upgradeTower: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmgDone: 0
   damage: 25
-  tier: 2
+  tier: 1
   bullet: {fileID: 6460863511665694184, guid: 9e442f307f48e48459fa7707787ef157, type: 3}
   shootingFrequency: 0
   towerType: 1

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public static int money = 200;
+    public static int money = 400;
     public static int health = 25;
     public static GameObject FocusedTower;
     public GameObject Enemy;

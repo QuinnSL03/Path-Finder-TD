@@ -232,7 +232,7 @@ MonoBehaviour:
   cost: 200
   notBought: 1
   camera: {fileID: 0}
-  upgradeTower: 0
+  upgradeTower: 1
 --- !u!114 &4024154521252075480
 MonoBehaviour:
   m_ObjectHideFlags: 0

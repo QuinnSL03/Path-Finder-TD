@@ -8,6 +8,7 @@ public class UpgradeTower : MonoBehaviour
     public GameObject Gunner3;
     public GameObject DoubleGunner2;
     public GameObject DoubleGunner3;
+    public GameObject MultiShooter2;
     public Camera camera;
     public GameObject tilesParent;
     // Start is called before the first frame update
@@ -62,6 +63,17 @@ public class UpgradeTower : MonoBehaviour
                 TowerHighlight.GetComponent<TowerHighlight>().tilesParent = this.tilesParent;
                 TowerHighlight.GetComponent<TowerHighlight>().camera = this.camera;
                 Instantiate(TowerHighlight, GameController.FocusedTower.gameObject.transform.position, Quaternion.identity);
+            }
+        }
+        else if (type == 3)
+        {
+            if (tier == 1)
+            {
+                GameObject TowerHighlight = MultiShooter2;
+                TowerHighlight.GetComponent<TowerHighlight>().tilesParent = this.tilesParent;
+                TowerHighlight.GetComponent<TowerHighlight>().camera = this.camera;
+                Instantiate(TowerHighlight, GameController.FocusedTower.gameObject.transform.position, Quaternion.identity);
+                
             }
         }
         Destroy(GameController.FocusedTower.gameObject);
